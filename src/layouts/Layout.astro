@@ -1,0 +1,47 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Melo website" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script>
+      // This code should be added to <head>.
+      // It's used to prevent page load glitches.
+      const html = document.querySelector("html");
+      const isLightOrAuto =
+        localStorage.getItem("hs_theme") === "light" ||
+        (localStorage.getItem("hs_theme") === "auto" &&
+          !window.matchMedia("(prefers-color-scheme: dark)").matches);
+      const isDarkOrAuto =
+        localStorage.getItem("hs_theme") === "dark" ||
+        (localStorage.getItem("hs_theme") === "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+      if (isLightOrAuto && html.classList.contains("dark"))
+        html.classList.remove("dark");
+      else if (isDarkOrAuto && html.classList.contains("light"))
+        html.classList.remove("light");
+      else if (isDarkOrAuto && !html.classList.contains("dark"))
+        html.classList.add("dark");
+      else if (isLightOrAuto && !html.classList.contains("light"))
+        html.classList.add("light");
+    </script>
+  </head>
+  <body class="bg-gray-50 dark:bg-neutral-900">
+    <slot />
+    <script>
+      import "preline/dist/preline.js";
+    </script>
+  </body>
+</html>
