@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Discover from "../components/Discover.astro";
 
 const title = "Melo - Your personal music hub";
 const menu = ["Home", "Features", "Plugins", "Downloads", "Developers"];
@@ -181,12 +182,12 @@ const menu = ["Home", "Features", "Plugins", "Downloads", "Developers"];
             </button>
             <div
               id="device-dropdown"
-              class="hs-dropdown-menu z-10 mb-2 mt-2 hidden origin-bottom-left space-y-0.5 rounded-lg bg-white p-1 opacity-0 shadow-md transition-[margin,opacity] duration-300 hs-dropdown-open:opacity-100 dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800"
+              class="max-w-[300px] hs-dropdown-menu z-10 mb-2 mt-2 hidden origin-bottom-left space-y-0.5 rounded-lg bg-white p-1 opacity-0 shadow-md transition-[margin,opacity] duration-300 hs-dropdown-open:opacity-100 dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="hs-dropdown-dark-mode"
             >
-              TODO
+              <Discover />
             </div>
           </div>
         </div>
@@ -246,7 +247,9 @@ const menu = ["Home", "Features", "Plugins", "Downloads", "Developers"];
   </header>
 
   <!-- ========== MAIN CONTENT ========== -->
-  <main id="content" class="min-h-screen p-4"></main>
+  <main id="content" class="min-h-screen">
+              <Discover />
+  </main>
   <!-- ========== END MAIN CONTENT ========== -->
 
   <footer class="bg-neutral-800 p-4 md:p-8 lg:p-10">

@@ -1,0 +1,93 @@
+---
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+}
+
+const { } = Astro.props;
+---
+
+<div class="dark:text-white flex flex-col">
+    <div class="dark:bg-neutral-800 p-2 border-b border-neutral-200 dark:border-neutral-700">
+      <button class="discover-refresh flex border-neutral-700 border px-2 py-1">
+        <Icon name="mdi:refresh" class="w-4 h-auto mr-2"/> Refresh
+      </button>
+    </div>
+    <ul class="dark:bg-neutral-800">
+      <li class="">
+        <div class="flex items-center px-2 py-1">
+          <div class="w-10 aspect-square p-1 bg-neutral-100 dark:bg-neutral-900">
+            <Icon name="mdi:tv" class="w-full h-auto"/>
+          </div>
+          <div class="px-2 flex-1 min-w-0">
+            <h5 class="truncate"><span class="text-green-600 pr-1">ONLINE</span>Melo Living</h5>
+            <h6 class="truncate">The Melo located on below the TV</h6>
+          </div>
+          <div class="w-8">
+            <button>
+              <Icon name="mdi:delete" class="w-full h-auto"/>
+            </button>
+          </div>
+        </div>
+        <ul class="bg-neutral-100 dark:bg-neutral-900">
+          <li class="pl-6 py-1 flex items-center hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer">
+            <div class="w-10 aspect-square p-2">
+              <Icon name="mdi:wifi" class="w-full h-auto"/>
+            </div>
+            <div class="px-2 flex-1 min-w-0">
+              <h5 class="truncate">Wifi</h5>
+              <h6 class="truncate">192.168.0.100</h6>
+            </div>
+          </li>
+        </ul>
+      </li> 
+      <li class="">
+        <div class="flex items-center px-2 py-1">
+          <div class="w-10 aspect-square p-1 bg-neutral-100 dark:bg-neutral-900">
+            <Icon name="mdi:bed-double" class="w-full h-auto"/>
+          </div>
+          <div class="px-2 flex-1 min-w-0">
+            <h5 class="truncate"><span class="text-red-600 pr-1">OFFLINE</span>Melo Bedroom</h5>
+            <h6 class="truncate">The Melo located on the shelf</h6>
+          </div>
+          <div class="w-8">
+            <button>
+              <Icon name="mdi:delete" class="w-full h-auto"/>
+            </button>
+          </div>
+        </div>
+        <ul class="bg-neutral-100 dark:bg-neutral-900">
+          <li class="pl-6 py-1 flex items-center hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer">
+            <div class="w-10 aspect-square p-2">
+              <Icon name="mdi:ethernet" class="w-full h-auto"/>
+            </div>
+            <div class="px-2 flex-1 min-w-0">
+              <h5 class="truncate">Ethernet</h5>
+              <h6 class="truncate">192.168.0.200</h6>
+            </div>
+          </li>
+          <li class="pl-6 py-1 flex items-center hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer">
+            <div class="w-10 aspect-square p-2">
+              <Icon name="mdi:wifi" class="w-full h-auto"/>
+            </div>
+            <div class="px-2 flex-1 min-w-0">
+              <h5 class="truncate">Wifi</h5>
+              <h6 class="truncate">192.168.0.201</h6>
+            </div>
+          </li>
+        </ul>
+      </li> 
+    </ul>
+</div>
+
+<script>
+    async function loadDevice() {
+      const response = await fetch("http://localhost:8888/device/list");
+      const list = await response.json();
+      console.log(list);
+    }
+
+    // Add refresh buttons
+    const buttons = document.querySelectorAll('button.discover-refresh'); 
+    buttons.forEach((button) => button.addEventListener("click", (event) => loadDevice()))
+</script>
