@@ -1,10 +1,10 @@
 # Melo Website repository
 
-This repository contains the source code of the website for [Melo](https://melo.website) project.
+This repository contains the source code of the website for [Melo](https://melo.re) project.
 
 ## Getting started
 
-The [Melo website](https://melo.website) is entirely generated with:
+The [Melo website](https://melo.re) is entirely generated with:
 
 - [Astro](https://astro.build/) for static generation and templating,
 - [TailwindCSS](https://tailwindcss.com/) for CSS utility classes,
