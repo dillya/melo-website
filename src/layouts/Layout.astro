@@ -1,0 +1,33 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+import "../styles/global.css";
+
+const title = "Melo - Your personal music hub";
+const menu = [
+  { name: "Home", link: "/" },
+  { name: "Features", link: "/features" },
+  { name: "Plugins", link: "/plugins" },
+  { name: "Downloads", link: "/downloads" },
+  { name: "Developers", link: "/developers" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-dvh flex flex-col">
+    <Header menu={menu} />
+    <main class="flex-1 flex flex-col">
+      <slot />
+    </main>
+    <Footer menu={menu} />
+  </body>
+</html>

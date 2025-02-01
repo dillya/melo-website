@@ -1,0 +1,11 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { Discover as DiscoverElement } from "../components/Discover.tsx";
+---
+
+<Layout>
+  <section class="mx-auto max-w-screen-xl w-full border border-neutral-200">
+    <DiscoverElement client:only />
+  </section>
+</Layout>

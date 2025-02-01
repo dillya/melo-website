@@ -1,0 +1,62 @@
+---
+
+---
+
+<div data-popover-trigger>
+  <slot name="trigger" />
+  <div class="hidden absolute top-0 left-0">
+    <slot name="content" />
+  </div>
+  <div></div>
+
+  <script>
+    import { computePosition, offset, shift } from "@floating-ui/dom";
+
+    function showContainer(trigger: HTMLElement, container: HTMLElement) {
+      // Display container
+      container.classList.remove("hidden");
+
+      // Update position
+      computePosition(trigger, container, {
+        middleware: [offset(4), shift({ padding: 6 })],
+      }).then(({ x, y }: { x: number; y: number }) => {
+        Object.assign(container.style, {
+          left: `${x}px`,
+          top: `${y}px`,
+        });
+      });
+    }
+
+    // Find our component DOM on the page.
+    const triggers = document.querySelectorAll("[data-popover-trigger]");
+
+    function hideContainer(event: Event) {
+      // Hide container
+      triggers.forEach((popover) => {
+        if (!event.target || !popover.contains(event.target as Node)) {
+          popover.firstElementChild?.nextElementSibling?.classList.add(
+            "hidden",
+          );
+        }
+      });
+    }
+
+    // Add event listeners to fire confetti when a button is clicked.
+    triggers.forEach((popover) => {
+      // Get elements
+      const trigger = popover.firstElementChild as HTMLElement;
+      const container = trigger.nextElementSibling as HTMLElement;
+      if (!trigger || !container) {
+        return;
+      }
+
+      // Add click event listener
+      trigger.addEventListener("click", () =>
+        showContainer(trigger, container),
+      );
+    });
+
+    // Add click event listener on body to close popover
+    document.querySelector("body")?.addEventListener("click", hideContainer);
+  </script>
+</div>

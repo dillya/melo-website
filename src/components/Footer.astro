@@ -1,0 +1,38 @@
+---
+import meloLogo from "../assets/melo.svg";
+
+import type MenuItem from "../types/MenuItem";
+
+interface Props {
+  menu: MenuItem[];
+}
+
+const { menu = [] } = Astro.props;
+---
+
+<footer class="bg-neutral-800 py-2 text-center">
+  <div
+    class="mx-auto max-w-screen-xl flex flex-col items-center justify-center"
+  >
+    <a href="https://melo.re" class="flex px-4 py-2">
+      <img src={meloLogo.src} class="h-9" alt="Melo Logo" />
+    </a>
+    <span class="text-neutral-300 py-2"> Melo - Your personal music hub </span>
+    <ul
+      class="flex flex-wrap justify-center items-center text-neutral-300 font-bold"
+    >
+      {
+        menu.map((item) => (
+          <li class="hover:text-orange-400 py-2">
+            <a href={item.link} class="px-2">
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <span class="text-neutral-300 py-2">
+      &copy; 2018-2025 Sparod. All Rights Reserved.
+    </span>
+  </div>
+</footer>

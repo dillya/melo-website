@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Fix issue with TailwindCSS 4 which doesn't detect .tsx files */
+@source "../components/";

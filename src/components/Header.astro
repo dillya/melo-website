@@ -1,0 +1,88 @@
+---
+import HeaderButton from "./HeaderButton.astro";
+import Popover from "./Popover.astro";
+import Discover from "./Discover.tsx";
+
+import meloLogo from "../assets/melo.svg";
+
+import type MenuItem from "../types/MenuItem";
+
+interface Props {
+  menu: MenuItem[];
+}
+
+const { menu = [] } = Astro.props;
+---
+
+<header class="bg-neutral-800">
+  <nav
+    class="mx-auto max-w-screen-xl px-4 lg:px-6 py-2.5 flex justify-between items-center"
+  >
+    <div class="flex">
+      <div class="md:hidden pr-2" data-menu="#menu">
+        <HeaderButton icon="mdi:menu" />
+      </div>
+      <a href="https://melo.re">
+        <img src={meloLogo.src} class="mr-3 h-9" alt="Melo Logo" />
+      </a>
+    </div>
+    <div
+      id="menu"
+      class="fixed bg-neutral-800 left-0 top-0 z-40 h-screen w-64 -translate-x-full transition-transform md:relative md:flex md:h-auto md:w-auto md:translate-x-0 md:transition-none"
+    >
+      <div class="flex items-center px-4 py-2 md:hidden">
+        <h2 class="text-white flex-1 text-2xl">Menu</h2>
+        <HeaderButton icon="mdi:close" data-menu="#menu" />
+      </div>
+      <ul
+        id="menu"
+        class="text-neutral-300 font-bold flex flex-col md:flex-row"
+      >
+        {
+          menu.map((item) => (
+            <li class="hover:text-orange-400 flex">
+              <a href={item.link} class="px-4 py-2">
+                {item.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="pr-1 flex">
+      <HeaderButton icon="mdi:sun-moon-stars" />
+      <Popover>
+        <HeaderButton slot="trigger" icon="mdi:monitor-speaker" />
+        <div
+          class="bg-white w-[300px] max-h-[300px] overflow-hidden rounded-lg border border-neutral-700 flex flex-col"
+          slot="content"
+        >
+          <Discover client:visible />
+        </div>
+      </Popover>
+    </div>
+  </nav>
+</header>
+
+<div
+  id="backdrop"
+  class="hidden md:hidden transition duration fixed inset-0 z-39 bg-neutral-900/80"
+  data-menu="#menu"
+>
+</div>
+
+<script>
+  const backdrop = document.querySelector("#backdrop");
+  const buttons = document.querySelectorAll("[data-menu]");
+
+  buttons.forEach((button) => {
+    const menu = document.querySelector((button as any).dataset.menu);
+    console.log(button);
+    if (menu) {
+      button.addEventListener("click", () => {
+        menu?.classList.toggle("translate-x-0");
+        backdrop?.classList.toggle("hidden");
+      });
+    }
+  });
+</script>
