@@ -16,10 +16,10 @@ const { menu = [] } = Astro.props;
 
 <header class="bg-neutral-800">
   <nav
-    class="mx-auto max-w-screen-xl px-4 lg:px-6 py-2.5 flex justify-between items-center"
+    class="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-2.5 lg:px-6"
   >
     <div class="flex">
-      <div class="md:hidden pr-2" data-menu="#menu">
+      <div class="pr-2 md:hidden" data-menu="#menu">
         <HeaderButton icon="mdi:menu" />
       </div>
       <a href="https://melo.re">
@@ -28,19 +28,19 @@ const { menu = [] } = Astro.props;
     </div>
     <div
       id="menu"
-      class="fixed bg-neutral-800 left-0 top-0 z-40 h-screen w-64 -translate-x-full transition-transform md:relative md:flex md:h-auto md:w-auto md:translate-x-0 md:transition-none"
+      class="fixed top-0 left-0 z-40 h-screen w-64 -translate-x-full bg-neutral-800 transition-transform md:relative md:flex md:h-auto md:w-auto md:translate-x-0 md:transition-none"
     >
       <div class="flex items-center px-4 py-2 md:hidden">
-        <h2 class="text-white flex-1 text-2xl">Menu</h2>
+        <h2 class="flex-1 text-2xl text-white">Menu</h2>
         <HeaderButton icon="mdi:close" data-menu="#menu" />
       </div>
       <ul
         id="menu"
-        class="text-neutral-300 font-bold flex flex-col md:flex-row"
+        class="flex flex-col font-bold text-neutral-300 md:flex-row"
       >
         {
           menu.map((item) => (
-            <li class="hover:text-orange-400 flex">
+            <li class="flex hover:text-orange-400 focus:text-orange-400">
               <a href={item.link} class="px-4 py-2">
                 {item.name}
               </a>
@@ -49,12 +49,12 @@ const { menu = [] } = Astro.props;
         }
       </ul>
     </div>
-    <div class="pr-1 flex">
+    <div class="flex pr-1">
       <HeaderButton icon="mdi:sun-moon-stars" />
       <Popover>
         <HeaderButton slot="trigger" icon="mdi:monitor-speaker" />
         <div
-          class="bg-white w-[300px] max-h-[300px] overflow-hidden rounded-lg border border-neutral-700 flex flex-col"
+          class="flex max-h-[300px] w-[300px] flex-col overflow-hidden rounded-lg border border-neutral-700 bg-white"
           slot="content"
         >
           <Discover client:visible />
@@ -66,7 +66,7 @@ const { menu = [] } = Astro.props;
 
 <div
   id="backdrop"
-  class="hidden md:hidden transition duration fixed inset-0 z-39 bg-neutral-900/80"
+  class="duration fixed inset-0 z-39 hidden bg-neutral-900/80 transition md:hidden"
   data-menu="#menu"
 >
 </div>

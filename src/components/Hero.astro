@@ -1,27 +1,35 @@
+---
+import Button from "./Button.astro";
+---
+
 <section id="hero">
   <div
-    class="bg-[url('/hero.webp')] bg-no-repeat bg-cover bg-center h-[400px] flex flex-col justify-between"
+    class="flex h-[400px] flex-col justify-between bg-[url('/hero.webp')] bg-cover bg-center bg-no-repeat"
   >
-    <div class="pt-5 max-w-xl text-center mx-auto">
-      <h1 class="block font-bold text-gray-800 text-4xl dark:text-neutral-200">
+    <div class="mx-auto max-w-xl pt-5 text-center">
+      <h1 class="block text-4xl font-bold text-gray-800 dark:text-neutral-200">
         Your personal Music Hub is Here
       </h1>
     </div>
     <div
-      class="max-w-xl text-center mx-auto flex justify-center pb-5 gap-4 text-white"
+      class="mx-auto flex max-w-xl justify-center gap-4 pb-5 text-center text-white"
     >
-      <a
+      <Button
+        icon="mdi:arrow-right-drop-circle-outline"
+        text="Connect to Melo"
         href="/discover"
-        class="border border-neutral-600/75 bg-orange-400/75 hover:bg-orange-500 px-2 py-1 rounded-lg"
-      >
-        Connect to Melo &gt;
-      </a>
-      <a
+        icon_on_right
+        bg="bg-orange-400/75 hover:bg-orange-500 focus:bg-orange-500"
+        border="border-neutral-600/75"
+        padding="px-2 py-1"
+      />
+      <Button
+        text="Discover Melo"
         href="/features"
-        class="cursor-pointer border border-neutral-600/75 bg-neutral-500/75 hover:bg-neutral-600 px-2 py-1 rounded-lg"
-      >
-        Discover Melo
-      </a>
+        bg="bg-neutral-500/75 hover:bg-neutral-600 focus:bg-neutral-600"
+        border="border-neutral-600/75"
+        padding="px-2 py-1"
+      />
     </div>
   </div>
 </section>

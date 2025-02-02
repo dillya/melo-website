@@ -1,0 +1,49 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  icon?: string;
+  text?: string;
+  icon_on_right?: boolean;
+
+  // Action
+  href?: string;
+  onClick?: string;
+
+  // Icon size
+  width?: string;
+  height?: string;
+
+  // Classes
+  color?: string;
+  bg?: string;
+  border?: string;
+  padding?: string;
+}
+
+const {
+  icon,
+  text,
+  icon_on_right = false,
+  href,
+  onClick,
+  width,
+  height,
+  color,
+  bg,
+  border,
+  padding,
+  ...props
+} = Astro.props;
+---
+
+<button
+  type="button"
+  onclick={onClick || href ? `location.href = '${href}'` : null}
+  class={`inline-flex items-center gap-2 ${color || ""} ${bg || "bg-orange-400 hover:bg-orange-500 focus:bg-orange-500"} border ${border || "border-neutral-400"} rounded-lg ${padding || "px-4 py-2"}`}
+  {...props}
+>
+  {icon_on_right && text}
+  {icon && <Icon name={icon} class={`w-${width} h-${height}`} />}
+  {!icon_on_right && text}
+</button>

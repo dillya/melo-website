@@ -1,6 +1,5 @@
 ---
 import { Icon } from "astro-icon/components";
-import type { ACTION_ERROR_CODES } from "astro:actions";
 
 interface Props {
   icon: string;
@@ -10,7 +9,7 @@ const { icon, ...props } = Astro.props;
 ---
 
 <button
-  class="text-white hover:text-orange-400 hover:bg-neutral-900 rounded-lg px-2 py-2 cursor-pointer"
+  class="cursor-pointer rounded-lg px-2 py-2 text-white hover:bg-neutral-900 hover:text-orange-400 focus:bg-neutral-900 focus:text-orange-400"
 >
-  <Icon name={icon} class="w-auto h-6" {...props} />
+  <Icon name={icon} class="h-6 w-auto" {...props} />
 </button>
