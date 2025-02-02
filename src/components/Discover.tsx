@@ -6,6 +6,8 @@ interface Device {
   name: string;
   description: string;
   icon: string;
+  http_port: number;
+  https_port?: number;
   online: boolean;
   last_update: number;
   ifaces: Interface[];
@@ -57,10 +59,21 @@ function InterfaceIcon({ type }: { type: string }) {
   return <Icon icon={icon} className="h-auto w-full" />;
 }
 
-function Interfaces({ list }: { list: Interface[] }) {
-  const onClick = useCallback((ipv4?: string, ipv6?: string) => {
-    window.location.href = "http://" + (ipv4 || ipv6);
-  }, []);
+function Interfaces({
+  list,
+  http_port,
+  https_port,
+}: {
+  list: Interface[];
+  http_port: number;
+  https_port?: number;
+}) {
+  const onClick = useCallback(
+    (ipv4?: string, ipv6?: string) => {
+      window.location.href = `http://${ipv4 || ipv6}:${https_port || http_port}`;
+    },
+    [http_port, https_port],
+  );
 
   return (
     <ul className="bg-white dark:bg-neutral-950">
@@ -164,7 +177,11 @@ function Devices({
               onClick={() => deleteDevice(item.serial)}
             />
           </div>
-          <Interfaces list={item.ifaces} />
+          <Interfaces
+            list={item.ifaces}
+            http_port={item.http_port}
+            https_port={item.https_port}
+          />
         </li>
       ))}
     </ul>
