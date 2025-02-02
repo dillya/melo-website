@@ -50,11 +50,11 @@ const { menu = [] } = Astro.props;
       </ul>
     </div>
     <div class="flex pr-1">
-      <HeaderButton icon="mdi:sun-moon-stars" />
+      <HeaderButton icon="mdi:sun-moon-stars" data-theme-toggle />
       <Popover>
         <HeaderButton slot="trigger" icon="mdi:monitor-speaker" />
         <div
-          class="flex max-h-[300px] w-[300px] flex-col overflow-hidden rounded-lg border border-neutral-700 bg-white"
+          class="flex max-h-[300px] w-[300px] flex-col overflow-hidden rounded-lg border border-neutral-700 bg-white dark:bg-neutral-900"
           slot="content"
         >
           <Discover client:visible />
@@ -77,12 +77,36 @@ const { menu = [] } = Astro.props;
 
   buttons.forEach((button) => {
     const menu = document.querySelector((button as any).dataset.menu);
-    console.log(button);
     if (menu) {
       button.addEventListener("click", () => {
         menu?.classList.toggle("translate-x-0");
         backdrop?.classList.toggle("hidden");
       });
     }
+  });
+</script>
+
+<script>
+  const buttons = document.querySelectorAll("[data-theme-toggle]");
+
+  function toggleTheme() {
+    const theme = localStorage.getItem("theme");
+    if (theme === "light") {
+      localStorage.setItem("theme", "dark");
+      document.documentElement.classList.add("dark");
+    } else if (theme === "dark") {
+      localStorage.removeItem("theme");
+      document.documentElement.classList.toggle(
+        "dark",
+        window.matchMedia("(prefers-color-scheme: dark)").matches,
+      );
+    } else {
+      localStorage.setItem("theme", "light");
+      document.documentElement.classList.remove("dark");
+    }
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", toggleTheme);
   });
 </script>

@@ -63,17 +63,17 @@ function Interfaces({ list }: { list: Interface[] }) {
   }, []);
 
   return (
-    <ul className="bg-white">
+    <ul className="bg-white dark:bg-neutral-950">
       {list.map((item) => (
         <li
           key={item.mac}
           onClick={() => onClick(item.ipv4, item.ipv6)}
-          className="flex cursor-pointer items-center gap-2 border-t border-l-4 border-transparent border-t-neutral-200 py-1 pr-2 pl-6 hover:border-l-orange-400 hover:bg-neutral-200 hover:text-orange-400"
+          className="flex cursor-pointer items-center gap-2 border-t border-l-4 border-transparent border-t-neutral-200 py-1 pr-2 pl-6 hover:border-l-orange-400 hover:bg-neutral-200 hover:text-orange-400 dark:border-t-neutral-700 dark:hover:bg-neutral-900"
         >
-          <div className="aspect-square w-10 p-2 text-black">
+          <div className="aspect-square w-10 p-2 text-black dark:text-white">
             <InterfaceIcon type={item.type} />
           </div>
-          <div className="min-w-0 flex-1 text-black">
+          <div className="min-w-0 flex-1 text-black dark:text-white">
             <h5 className="truncate text-base">{item.name}</h5>
             <h6 className="truncate text-xs italic">
               {item.ipv4} - {item.ipv6}
@@ -143,7 +143,7 @@ function Devices({
       {list.map((item) => (
         <li
           key={item.serial}
-          className="border-neutral-300 bg-neutral-100 not-last:border-b"
+          className="border-neutral-300 bg-neutral-100 not-last:border-b dark:border-neutral-800 dark:bg-neutral-900"
         >
           <div className="flex items-center gap-2 px-2 py-1">
             <div className="aspect-square w-10 p-1">
@@ -173,12 +173,12 @@ function Devices({
 
 function Header({ onClick }: { onClick: () => void }) {
   return (
-    <div className="flex items-center border-b border-neutral-200 px-4 py-2">
+    <div className="flex items-center border-b border-neutral-200 px-4 py-2 dark:border-neutral-700 dark:bg-neutral-800">
       <span className="flex-1">Detected devices: </span>
       <Button
         icon="mdi:refresh"
         text="Refresh"
-        className="hover:bg-neutral-200 focus:bg-neutral-200"
+        className="hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
         onClick={onClick}
       />
     </div>

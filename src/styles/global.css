@@ -5,3 +5,6 @@
 
 /* Make hover sticky on mobile devices */
 @custom-variant hover (&:hover);
+
+/* Enable manual dark mode */
+@custom-variant dark (&:where(.dark, .dark *));

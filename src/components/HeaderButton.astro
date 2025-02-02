@@ -10,6 +10,7 @@ const { icon, ...props } = Astro.props;
 
 <button
   class="cursor-pointer rounded-lg px-2 py-2 text-white hover:bg-neutral-900 hover:text-orange-400 focus:bg-neutral-900 focus:text-orange-400"
+  {...props}
 >
-  <Icon name={icon} class="h-6 w-auto" {...props} />
+  <Icon name={icon} class="h-6 w-auto" />
 </button>

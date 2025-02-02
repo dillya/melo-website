@@ -27,8 +27,17 @@ const menu = [
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <script is:inline>
+      document.documentElement.classList.toggle(
+        "dark",
+        localStorage.getItem("theme") === "dark" ||
+          (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches),
+      );
+    </script>
   </head>
-  <body class="flex min-h-dvh flex-col">
+  <body class="flex min-h-dvh flex-col dark:bg-neutral-900 dark:text-white">
     <Header menu={menu} />
     <main class="flex flex-1 flex-col">
       <slot />
