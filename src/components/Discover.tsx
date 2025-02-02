@@ -32,11 +32,12 @@ function Button({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`py-1 border border-neutral-600 rounded flex items-center px-2 cursor-pointer ${className}`}
+      className={`inline-flex cursor-pointer items-center gap-2 rounded border border-neutral-600 px-2 py-1 ${className}`}
     >
-      {icon && <Icon icon={icon} className="w-4 h-auto" />}
-      {text && <span className="px-2">{text}</span>}
+      {icon && <Icon icon={icon} className="h-auto w-4" />}
+      {text}
     </button>
   );
 }
@@ -53,7 +54,7 @@ function InterfaceIcon({ type }: { type: string }) {
     }
   }, [type]);
 
-  return <Icon icon={icon} className="w-full h-auto" />;
+  return <Icon icon={icon} className="h-auto w-full" />;
 }
 
 function Interfaces({ list }: { list: Interface[] }) {
@@ -62,22 +63,26 @@ function Interfaces({ list }: { list: Interface[] }) {
   }, []);
 
   return (
-    <ul className="bg-neutral-200">
+    <ul className="bg-white">
       {list.map((item) => (
         <li
           key={item.mac}
           onClick={() => onClick(item.ipv4, item.ipv6)}
-          className="pl-6 py-1 flex items-center border-l-4 border-transparent hover:border-orange-500 hover:bg-neutral-300 cursor-pointer"
+          className="flex cursor-pointer items-center gap-2 border-t border-l-4 border-transparent border-t-neutral-200 py-1 pr-2 pl-6 hover:border-l-orange-400 hover:bg-neutral-200 hover:text-orange-400"
         >
-          <div className="w-10 aspect-square p-2">
+          <div className="aspect-square w-10 p-2 text-black">
             <InterfaceIcon type={item.type} />
           </div>
-          <div className="px-2 flex-1 min-w-0">
+          <div className="min-w-0 flex-1 text-black">
             <h5 className="truncate text-base">{item.name}</h5>
             <h6 className="truncate text-xs italic">
               {item.ipv4} - {item.ipv6}
             </h6>
           </div>
+          <Icon
+            icon="mdi:arrow-right-circle-outline"
+            className="h-auto w-5 hover:text-orange-400"
+          />
         </li>
       ))}
     </ul>
@@ -98,7 +103,7 @@ function DeviceIcon({ icon }: { icon: string }) {
     }
   }, [icon]);
 
-  return <Icon icon={mdi_icon} className="w-full h-auto" />;
+  return <Icon icon={mdi_icon} className="h-auto w-full" />;
 }
 
 function ConnectionIcon({ online, ts }: { online: boolean; ts: number }) {
@@ -106,11 +111,11 @@ function ConnectionIcon({ online, ts }: { online: boolean; ts: number }) {
     const diff = Date.now() / 1000 - ts;
     if (online) {
       if (diff < 45) return "text-green-500";
-      else if (diff < 120) return "text-orange-500";
+      else if (diff < 120) return "text-yellow-500";
     }
     return "text-red-500";
   }, [online, ts]);
-  return <Icon icon="mdi:connection" className={`w-4 h-auto ${color}`} />;
+  return <Icon icon="mdi:connection" className={`h-auto w-4 ${color}`} />;
 }
 
 function Devices({
@@ -134,27 +139,28 @@ function Devices({
   }, []);
 
   return (
-    <ul className="flex flex-col overflow-y-auto flex-1">
+    <ul className="flex flex-1 flex-col overflow-y-auto">
       {list.map((item) => (
-        <li key={item.serial} className="even:bg-neutral-100">
-          <div className="flex items-center px-2 py-1">
-            <div className="w-10 aspect-square p-1">
+        <li
+          key={item.serial}
+          className="border-neutral-300 bg-neutral-100 not-last:border-b"
+        >
+          <div className="flex items-center gap-2 px-2 py-1">
+            <div className="aspect-square w-10 p-1">
               <DeviceIcon icon={item.icon} />
             </div>
-            <div className="px-2 flex-1 min-w-0">
-              <h5 className="truncate text-lg flex items-center">
-                <div className="pr-2">
-                  <ConnectionIcon online={item.online} ts={item.last_update} />
-                </div>
+            <div className="min-w-0 flex-1">
+              <h5 className="flex items-center gap-2 truncate text-lg">
+                <ConnectionIcon online={item.online} ts={item.last_update} />
                 {item.name}
               </h5>
-              <h6 className="truncate text-sm pl-6 italic">
+              <h6 className="truncate pl-6 text-sm italic">
                 {item.description}
               </h6>
             </div>
             <Button
               icon="mdi:delete"
-              className="bg-red-500 hover:bg-red-600 text-white"
+              className="bg-red-500 text-white hover:bg-red-600 focus:bg-red-600"
               onClick={() => deleteDevice(item.serial)}
             />
           </div>
@@ -167,12 +173,12 @@ function Devices({
 
 function Header({ onClick }: { onClick: () => void }) {
   return (
-    <div className="border-b border-neutral-200 px-4 py-2 flex items-center">
+    <div className="flex items-center border-b border-neutral-200 px-4 py-2">
       <span className="flex-1">Detected devices: </span>
       <Button
         icon="mdi:refresh"
         text="Refresh"
-        className="hover:bg-neutral-200"
+        className="hover:bg-neutral-200 focus:bg-neutral-200"
         onClick={onClick}
       />
     </div>
@@ -181,22 +187,22 @@ function Header({ onClick }: { onClick: () => void }) {
 
 function Loading() {
   return (
-    <div className="min-h-20 flex items-center justify-center p-4">
+    <div className="inline-flex min-h-20 items-center justify-center gap-4 p-4">
       <div
-        className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-orange-500 rounded-full"
+        className="inline-block size-6 animate-spin rounded-full border-[3px] border-current border-t-transparent text-orange-500"
         role="status"
         aria-label="loading"
       ></div>
-      <span className="px-4">Loading...</span>
+      Loading...
     </div>
   );
 }
 
 function Empty() {
   return (
-    <div className="min-h-20 flex items-center justify-center p-4">
-      <Icon icon="mdi:close-circle" className="w-8 h-auto" />
-      <span className="px-2">No devices!</span>
+    <div className="inline-flex min-h-20 items-center justify-center gap-2 p-4">
+      <Icon icon="mdi:close-circle" className="h-auto w-8" />
+      No devices!
     </div>
   );
 }
@@ -235,7 +241,7 @@ export function Discover() {
   }, []);
 
   return (
-    <div className="overflow-auto flex flex-col">
+    <div className="flex flex-col overflow-auto">
       <Header onClick={onRefresh} />
       {loading ? (
         <Loading />
