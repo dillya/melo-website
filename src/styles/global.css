@@ -2,3 +2,6 @@
 
 /* Fix issue with TailwindCSS 4 which doesn't detect .tsx files */
 @source "../components/";
+
+/* Make hover sticky on mobile devices */
+@custom-variant hover (&:hover);
