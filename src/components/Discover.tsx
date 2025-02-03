@@ -77,27 +77,29 @@ function Interfaces({
 
   return (
     <ul className="bg-white dark:bg-neutral-950">
-      {list.map((item) => (
-        <li
-          key={item.mac}
-          onClick={() => onClick(item.ipv4, item.ipv6)}
-          className="flex cursor-pointer items-center gap-2 border-t border-l-4 border-transparent border-t-neutral-200 py-1 pr-2 pl-6 hover:border-l-orange-400 hover:bg-neutral-200 hover:text-orange-400 dark:border-t-neutral-700 dark:hover:bg-neutral-900"
-        >
-          <div className="aspect-square w-10 p-2 text-black dark:text-white">
-            <InterfaceIcon type={item.type} />
-          </div>
-          <div className="min-w-0 flex-1 text-black dark:text-white">
-            <h5 className="truncate text-base">{item.name}</h5>
-            <h6 className="truncate text-xs italic">
-              {item.ipv4} - {item.ipv6}
-            </h6>
-          </div>
-          <Icon
-            icon="mdi:arrow-right-circle-outline"
-            className="h-auto w-5 hover:text-orange-400"
-          />
-        </li>
-      ))}
+      {list.map((item) =>
+        item.ipv4 || item.ipv6 ? (
+          <li
+            key={item.mac}
+            onClick={() => onClick(item.ipv4, item.ipv6)}
+            className="flex cursor-pointer items-center gap-2 border-t border-l-4 border-transparent border-t-neutral-200 py-1 pr-2 pl-6 hover:border-l-orange-400 hover:bg-neutral-200 hover:text-orange-400 dark:border-t-neutral-800 dark:hover:bg-neutral-900"
+          >
+            <div className="aspect-square w-10 p-2 text-black dark:text-white">
+              <InterfaceIcon type={item.type} />
+            </div>
+            <div className="min-w-0 flex-1 text-black dark:text-white">
+              <h5 className="truncate text-base">{item.name}</h5>
+              <h6 className="truncate text-xs italic">
+                {item.ipv4} - {item.ipv6}
+              </h6>
+            </div>
+            <Icon
+              icon="mdi:arrow-right-circle-outline"
+              className="h-auto w-5 hover:text-orange-400"
+            />
+          </li>
+        ) : null,
+      )}
     </ul>
   );
 }
