@@ -226,7 +226,7 @@ function Empty() {
   );
 }
 
-export function Discover() {
+export function Connect() {
   const [devices, setDevices] = useState<Device[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -273,4 +273,4 @@ export function Discover() {
   );
 }
 
-export default Discover;
+export default Connect;

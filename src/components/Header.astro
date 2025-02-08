@@ -1,7 +1,7 @@
 ---
 import HeaderButton from "./HeaderButton.astro";
 import Popover from "./Popover.astro";
-import Discover from "./Discover.tsx";
+import Connect from "./Connect.tsx";
 
 import meloLogo from "../assets/melo.svg";
 
@@ -57,7 +57,7 @@ const { menu = [] } = Astro.props;
           class="flex max-h-[300px] w-[300px] flex-col overflow-hidden rounded-lg border border-neutral-700 bg-white dark:bg-neutral-900"
           slot="content"
         >
-          <Discover client:visible />
+          <Connect client:visible />
         </div>
       </Popover>
     </div>

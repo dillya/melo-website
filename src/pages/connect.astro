@@ -1,13 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-import { Discover as DiscoverElement } from "../components/Discover.tsx";
+import { Connect as ConnectElement } from "../components/Connect.tsx";
 ---
 
 <Layout>
   <section
     class="mx-auto w-full max-w-screen-xl border border-neutral-200 dark:border-neutral-700"
   >
-    <DiscoverElement client:only />
+    <ConnectElement client:load />
   </section>
 </Layout>
