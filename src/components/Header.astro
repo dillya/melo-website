@@ -18,7 +18,7 @@ const { menu = [] } = Astro.props;
   <nav
     class="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-2.5 lg:px-6"
   >
-    <div class="flex">
+    <div class="flex min-w-[110px]">
       <div class="pr-2 md:hidden" data-menu="#menu">
         <HeaderButton icon="mdi:menu" />
       </div>
@@ -50,7 +50,23 @@ const { menu = [] } = Astro.props;
       </ul>
     </div>
     <div class="flex pr-1">
-      <HeaderButton icon="mdi:sun-moon-stars" data-theme-toggle />
+      <HeaderButton
+        icon="mdi:white-balance-sunny"
+        data-theme-toggle
+        data-theme-light
+        className="hidden"
+      />
+      <HeaderButton
+        icon="mdi:moon-and-stars"
+        data-theme-toggle
+        data-theme-dark
+        className="hidden"
+      />
+      <HeaderButton
+        icon="mdi:sun-moon-stars"
+        data-theme-toggle
+        data-theme-auto
+      />
       <Popover>
         <HeaderButton slot="trigger" icon="mdi:monitor-speaker" />
         <div
@@ -89,6 +105,10 @@ const { menu = [] } = Astro.props;
 <script>
   const buttons = document.querySelectorAll("[data-theme-toggle]");
 
+  function getTheme() {
+    return localStorage.getItem("theme") || "auto";
+  }
+
   function toggleTheme() {
     const theme = localStorage.getItem("theme");
     if (theme === "light") {
@@ -104,9 +124,19 @@ const { menu = [] } = Astro.props;
       localStorage.setItem("theme", "light");
       document.documentElement.classList.remove("dark");
     }
+    buttons.forEach((button) =>
+      button.classList.toggle(
+        "hidden",
+        !button.hasAttribute("data-theme-" + getTheme()),
+      ),
+    );
   }
 
   buttons.forEach((button) => {
     button.addEventListener("click", toggleTheme);
+    button.classList.toggle(
+      "hidden",
+      !button.hasAttribute("data-theme-" + getTheme()),
+    );
   });
 </script>
